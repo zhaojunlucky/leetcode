@@ -13,6 +13,7 @@ public class CollectionUtil {
         return nums;
     }
 
+
     public static String arr2str(int[] nums) {
         return Arrays.stream(nums).mapToObj(String::valueOf)
                 .reduce((l, r)-> String.format("%s, %s", l, r)).get();
@@ -23,9 +24,19 @@ public class CollectionUtil {
         return nums;
     }
 
+    public static String arr2str(long[] nums) {
+        return Arrays.stream(nums).mapToObj(String::valueOf)
+                .reduce((l, r)-> String.format("%s, %s", l, r)).get();
+    }
+
     public static double[] arr(double ...nums) {
         Objects.requireNonNull(nums);
         return nums;
+    }
+
+    public static String arr2str(double[] nums) {
+        return Arrays.stream(nums).mapToObj(String::valueOf)
+                .reduce((l, r)-> String.format("%s, %s", l, r)).get();
     }
 
     public static byte[] arr(byte ...nums) {
