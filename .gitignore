@@ -26,3 +26,5 @@ hs_err_pid*
 .gradle
 .out
 out
+.DS_Store
+

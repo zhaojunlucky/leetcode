@@ -1,4 +1,4 @@
-package findfirstandlastpositionofelementinsortedarray;
+package com.magicworldz.leetcode.findfirstandlastpositionofelementinsortedarray;
 
 import com.magicworldz.leetcode.common.CollectionUtil;
 import com.magicworldz.leetcode.common.TestUtil;
