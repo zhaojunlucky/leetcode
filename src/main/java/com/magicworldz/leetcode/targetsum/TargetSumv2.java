@@ -4,6 +4,7 @@ import com.magicworldz.leetcode.common.CollectionUtil;
 import com.magicworldz.leetcode.common.duration.Duration;
 import com.magicworldz.leetcode.common.duration.LeetCode;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,30 +15,28 @@ public class TargetSumv2 {
         var app = LeetCode.newInstance(TargetSumv2.class);
         var arr = CollectionUtil.arr(34,21,12,36,16,7,31,7,41,49,7,48,22,19,32,46,19,18,44,34);
         System.out.println(app.findTargetSumWays(arr, 47));
+//        var arr = CollectionUtil.arr(1, 1, 1, 1, 1);
+//        System.out.println(app.findTargetSumWays(arr, 3));
     }
 
     @Duration
     public int findTargetSumWays(int[] nums, int S) {
-        return targetSum(nums, S, 0, 0);
-    }
-
-    public int targetSum(int[] nums, int S, int curSum, int index) {
-
-        if (index == nums.length && curSum == S) {
-            return 1;
-        } else if (index == nums.length) {
+        int sum = Arrays.stream(nums).sum();
+        if (S > sum) {
             return 0;
         }
-
-        String key = String.format("%d-%d", index, curSum);
-        if (cache.containsKey(key)) {
-            //System.out.println("cached key:" + key);
-            return cache.get(key);
+        int len = sum * 2 + 1;
+        int[][] dp = new int[nums.length + 1][len];
+        dp[0][sum] = 1;
+        for (int i = 0; i < nums.length; i++) {
+            int num = nums[i];
+            for (int j = 0; j < len; j++) {
+                if (dp[i][j] != 0) {
+                    dp[i + 1][j + num] += dp[i][j];
+                    dp[i + 1][j - num] += dp[i][j];
+                }
+            }
         }
-        int ans = 0;
-        ans += targetSum(nums, S, curSum - nums[index], index + 1);
-        ans += targetSum(nums, S, curSum + nums[index], index + 1);
-        cache.put(key, ans);
-        return ans;
+        return dp[nums.length][S + sum];
     }
 }
