@@ -1,6 +1,8 @@
 package com.magicworldz.leetcode.common;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class CollectionUtil {
@@ -57,5 +59,9 @@ public class CollectionUtil {
     public static short[] arr(short ...nums) {
         Objects.requireNonNull(nums);
         return nums;
+    }
+
+    public static <T> List<T> newArrList() {
+        return new ArrayList<>();
     }
 }
