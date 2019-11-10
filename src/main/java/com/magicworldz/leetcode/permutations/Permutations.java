@@ -1,16 +1,19 @@
-package com.magicworldz.leetcode.searchinrotatedsortedarray;
+package com.magicworldz.leetcode.permutations;
 
 import com.magicworldz.leetcode.common.CollectionUtil;
 import com.magicworldz.leetcode.common.TestUtil;
+import com.magicworldz.leetcode.common.duration.Duration;
+import com.magicworldz.leetcode.common.duration.LeetCode;
 
 import java.util.*;
 
 public class Permutations {
     public static void main(String[] args) {
-        var app = new Permutations();
+        var app = LeetCode.newInstance(Permutations.class);
         TestUtil.println(app.permute(CollectionUtil.arr(1, 2, 3)));
     }
 
+    @Duration
     public List<List<Integer>> permute(int[] nums) {
         Arrays.sort(nums);
         List<List<Integer>> ans = new ArrayList<>();
