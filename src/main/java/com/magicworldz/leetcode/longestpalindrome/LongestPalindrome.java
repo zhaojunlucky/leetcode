@@ -6,7 +6,7 @@ import com.magicworldz.leetcode.common.duration.LeetCode;
 public class LongestPalindrome {
     public static void main(String[] args) {
         var app = LeetCode.newInstance(LongestPalindrome.class);
-        System.out.println(app.longestPalindrome("babad"));
+        System.out.println(app.longestPalindrome("aibohphobia"));
     }
 
     @Duration
