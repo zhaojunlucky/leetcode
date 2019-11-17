@@ -1,4 +1,4 @@
-package com.magicworldz.leetcode.steelstripcutting;
+package com.magicworldz.leetcode.cutrod;
 
 import com.magicworldz.leetcode.common.duration.Duration;
 import com.magicworldz.leetcode.common.duration.LeetCode;
@@ -8,17 +8,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SteelStripCutting {
+public class CutRod {
     public static void main(String[] args) {
-        var app = LeetCode.newInstance(SteelStripCutting.class);
+        var app = LeetCode.newInstance(CutRod.class);
         int[] lens = new int[]   {1, 2, 3, 4,  5,  6,  7,  8,  9, 10};
         int[] prices = new int[] {1, 5, 8, 9, 10, 17, 17, 20, 24, 30};
         List<Integer> cuttings = new ArrayList<>();
-        System.out.println(app.cutSteelStrip(7, lens, prices, cuttings));
+        System.out.println("Max price: " + app.cutRod(7, lens, prices, cuttings));
+        System.out.println("cuttings: " + cuttings.toString());
     }
 
     @Duration
-    public int cutSteelStrip(int n, int[] lens, int[] prices, List<Integer> cuttings) {
+    public int cutRod(int n, int[] lens, int[] prices, List<Integer> cuttings) {
         // p(n) = max{p(n), p(1)+p(n-1), p(2)+p(n-2),..., p(n-1)+p1}
         Map<Integer, Integer> lenPriceMap = new HashMap<>();
         for (int i = 0; i < lens.length; ++i) {
