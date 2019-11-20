@@ -3,9 +3,9 @@ package com.magicworldz.leetcode.optimalbinarysearchtree;
 import com.magicworldz.leetcode.common.duration.Duration;
 import com.magicworldz.leetcode.common.duration.LeetCode;
 
-public class OptimalBinarySearchTree {
+public class OptimalBinarySearchTreeV2 {
     public static void main(String[] args) {
-        var app = LeetCode.newInstance(OptimalBinarySearchTree.class);
+        var app = LeetCode.newInstance(OptimalBinarySearchTreeV2.class);
         double[] p = new double[]{0,    0.15, 0.1,  0.05, 0.10, 0.2};
         double[] q = new double[]{0.05, 0.1,  0.05, 0.05, 0.05, 0.1};
         int[][] root = new int[p.length+1][p.length+1];
@@ -31,18 +31,22 @@ public class OptimalBinarySearchTree {
         }
 
         int j;
-        double ee, ww;
+        double ee;
         for (int l = 1; l <= n; ++l) {
             for (int i = 1; i <= n - l + 1; ++i) {
                 j = i + l - 1;
                 e[i][j] = Double.MAX_VALUE;
                 w[i][j] = w[i][j-1] + p[j] + q[j];
-
-                for (int k = i; k <= j; ++k) {
-                    ee = e[i][k-1] + e[k+1][j] + w[i][j];
-                    if (e[i][j] > ee) {
-                        e[i][j] = ee;
-                        root[i][j] = k;
+                if (i == j) {
+                    root[i][j] = j;
+                    e[i][j] = e[i][j-1] + e[j+1][j] + w[i][j];
+                } else {
+                    for (int k = root[i][j-1]; k <= root[i+1][j]; ++k) {
+                        ee = e[i][k-1] + e[k+1][j] + w[i][j];
+                        if (e[i][j] > ee) {
+                            e[i][j] = ee;
+                            root[i][j] = k;
+                        }
                     }
                 }
             }
