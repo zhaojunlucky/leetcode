@@ -11,8 +11,8 @@ public class BitonicEuclideanTravelingSalesmanProblem {
         Point[] points = new Point[] {Point.of(0, 0), Point.of(1, 6),
                 Point.of(2, 3), Point.of(5, 2), Point.of(6, 5),
                 Point.of(7, 1), Point.of(8, 4)};
-        System.out.println(app.bitonicTours(points));
 
+        System.out.println(app.bitonicTours(points));
     }
 
     private double bitonicTours(Point[] points) {
@@ -23,13 +23,13 @@ public class BitonicEuclideanTravelingSalesmanProblem {
         b[0][1] = points[0].distance(points[1]);
 
         for (int j = 2; j < points.length; ++j) {
-            for (int i = 0; i <= j - 2; ++i) {
+            for (int i = 0; i < j - 1; ++i) {
                 b[i][j] = b[i][j-1] + points[j-1].distance(points[j]);
                 root[i][j] = j - 1;
             }
-            b[j][j-1] = Double.MAX_VALUE;
+            b[j-1][j] = Double.MAX_VALUE;
 
-            for (int k = 0; k <= j - 2; ++k) {
+            for (int k = 0; k < j - 1; ++k) {
                 double q = b[k][j-1] + points[k].distance(points[j]);
                 if (q < b[j-1][j]) {
                     b[j-1][j] = q;
