@@ -2,8 +2,11 @@ package com.magicworldz.leetcode.bitoniceuclideantraveling;
 
 import com.magicworldz.leetcode.common.duration.LeetCode;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class BitonicEuclideanTravelingSalesmanProblem {
     public static void main(String[] args) {
@@ -11,11 +14,12 @@ public class BitonicEuclideanTravelingSalesmanProblem {
         Point[] points = new Point[] {Point.of(0, 0), Point.of(1, 6),
                 Point.of(2, 3), Point.of(5, 2), Point.of(6, 5),
                 Point.of(7, 1), Point.of(8, 4)};
-
-        System.out.println(app.bitonicTours(points));
+        List<Point> solution = new ArrayList<>();
+        System.out.println(app.bitonicTours(points, solution));
+        System.out.println("solution: " + solution.stream().map(Point::toString).collect(Collectors.joining("->")));
     }
 
-    private double bitonicTours(Point[] points) {
+    private double bitonicTours(Point[] points, List<Point> solution) {
         Arrays.sort(points, Comparator.comparingInt(Point::getX));
 
         double[][] b = new double[points.length][points.length];
@@ -39,6 +43,34 @@ public class BitonicEuclideanTravelingSalesmanProblem {
         }
         b[points.length - 1][points.length - 1] = b[points.length - 2][points.length - 1]
                 + points[points.length - 2].distance(points[points.length - 1]);
+        calcTour(root, points, solution);
         return b[points.length - 1][points.length - 1];
+    }
+
+    private void calcTour(int[][] root, Point[] points, List<Point> solution) {
+        int i = points.length - 1;
+        int j = points.length - 2;
+        solution.add(points[i]);
+        solution.add(points[j]);
+        int k = root[j][i];
+        calcTour(root, points, solution, k, j);
+        solution.add(points[k]);
+    }
+
+    private void calcTour(int[][] root, Point[] points, List<Point> solution, int i, int j) {
+        if (i < j) {
+            int k = root[i][j];
+            solution.add(points[k]);
+
+            if (k > 0) {
+                calcTour(root, points, solution, i, k);
+            }
+        } else {
+            int k = root[j][i];
+            if (k > 0) {
+                calcTour(root, points, solution, k, j);
+                solution.add(points[k]);
+            }
+        }
     }
 }
